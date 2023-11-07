@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2hbqmaie47c4"]
+
+[ext_resource type="PackedScene" uid="uid://bf0mayk7on0pw" path="res://CityGenerator.tscn" id="2_0ja16"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cen41"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_2uy3q"]
+sky_material = SubResource("ProceduralSkyMaterial_cen41")
+
+[sub_resource type="Environment" id="Environment_eq8rj"]
+background_mode = 2
+sky = SubResource("Sky_2uy3q")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvkxm"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tevsa"]
+material = SubResource("StandardMaterial3D_fvkxm")
+size = Vector2(1, 1)
+
+[node name="World" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0.291425, -0.030845, 0.956096, -0.406294, 0.900858, 0.152904, 0, 4.62806, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_eq8rj")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 31.722, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 0.1, 0, 0, 0, 100, 0, -0.1, 0)
+mesh = SubResource("PlaneMesh_tevsa")
+
+[node name="CityGenerator" parent="." instance=ExtResource("2_0ja16")]
+rows = 7
+columns = 7

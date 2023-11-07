@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://favi53m4tuhu"]
+
+[ext_resource type="Texture2D" uid="uid://djb7cto7ab2x4" path="res://assets/PrototypeTextures/Grid.png" id="1_k4fbm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcp7d"]
+transparency = 1
+albedo_texture = ExtResource("1_k4fbm")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hms72"]
+lightmap_size_hint = Vector2i(7, 7)
+size = Vector2(1, 1)
+
+[node name="CellPlaceholder" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00305924, 1.19209e-07, 0.000235319)
+material_override = SubResource("StandardMaterial3D_dcp7d")
+mesh = SubResource("PlaneMesh_hms72")
