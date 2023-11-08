@@ -1,10 +1,9 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1699385164
-CellPlaceholder.tscn::PackedScene::352235180929273786::1699384793::0::1::::<><>::uid://djb7cto7ab2x4
-CityGenerator.gd::GDScript::-1::1699384154::0::1::::CityGenerator<>Node3D<>::
-CityGenerator.tscn::PackedScene::2789704227129585216::1699384793::0::1::::<><>::res://CityGenerator.gd<>uid://favi53m4tuhu
+::res://::1699406625
+CityGenerator.gd::GDScript::-1::1699406612::0::1::::CityGenerator<>Node3D<>::
+CityGenerator.tscn::PackedScene::2789704227129585216::1699406552::0::1::::<><>::res://CityGenerator.gd<>uid://favi53m4tuhu::::res://CityParts/Cell.tscn<>uid://cgdn8icfw1bsu::::res://CityParts/Road.tscn
 icon.svg::CompressedTexture2D::7603810794949884737::1699377385::1699384793::1::::<><>::
-world.tscn::PackedScene::6682480710236947081::1699384793::0::1::::<><>::uid://bf0mayk7on0pw
+world.tscn::PackedScene::6682480710236947081::1699406587::0::1::::<><>::uid://bf0mayk7on0pw::::res://CityGenerator.tscn
 ::res://assets/::1699378970
 ::res://assets/PrototypeTextures/::1699384793
 Grid.png::CompressedTexture2D::7794973557956910495::1699380303::1699384793::1::::<><>::
@@ -94,3 +93,6 @@ texture_10.png::CompressedTexture2D::8934161886008198670::1699378936::1699384793
 texture_11.png::CompressedTexture2D::4578292158829673032::1699378936::1699384793::1::::<><>::
 texture_12.png::CompressedTexture2D::7370432578635709532::1699378936::1699384793::1::::<><>::
 texture_13.png::CompressedTexture2D::4014465670563596885::1699378936::1699384793::1::::<><>::
+::res://CityParts/::1699405762
+Cell.tscn::PackedScene::352235180929273786::1699405293::0::1::::<><>::uid://djb7cto7ab2x4::::res://assets/PrototypeTextures/Grid.png
+Road.tscn::PackedScene::5201016238115411532::1699405762::0::1::::<><>::

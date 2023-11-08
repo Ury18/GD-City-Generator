@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bf0mayk7on0pw"]
+[gd_scene load_steps=6 format=3 uid="uid://bf0mayk7on0pw"]
 
 [ext_resource type="Script" path="res://CityGenerator.gd" id="1_shr5w"]
-[ext_resource type="PackedScene" uid="uid://favi53m4tuhu" path="res://CellPlaceholder.tscn" id="2_t2qtj"]
+[ext_resource type="PackedScene" uid="uid://favi53m4tuhu" path="res://CityParts/Cell.tscn" id="2_t2qtj"]
+[ext_resource type="PackedScene" uid="uid://cgdn8icfw1bsu" path="res://CityParts/Road.tscn" id="3_jwii2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53wnc"]
 albedo_color = Color(0.886275, 0.454902, 0, 1)
@@ -15,11 +16,13 @@ center = NodePath("MeshInstance3D")
 cell_size = 4
 rows = 5
 columns = 5
-cell_placeholder = ExtResource("2_t2qtj")
+cellScene = ExtResource("2_t2qtj")
+roadScene = ExtResource("3_jwii2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.00001, 0, 0, 0, 1, 0, 0, 0, 1.00001, 0, 0, 0)
+visible = false
 mesh = SubResource("BoxMesh_4al86")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.01
