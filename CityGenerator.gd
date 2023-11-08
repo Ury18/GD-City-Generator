@@ -14,6 +14,7 @@ extends Node3D
 @export var minRoadsVertical = 2
 @export var maxRoadsVertical = 2
 @export var roads_margin = 3
+@export	var roads_padding = 0
 
 var grid : Array[Array] = []
 
@@ -27,14 +28,14 @@ func _ready():
 	for r in rows:
 		grid.push_back([])
 		for c in columns:
-			var cell_position : Vector3 = center.global_position
+			var cell_position : Vector3 = center.position
 			cell_position.x = floor(cell_position.x) - floor( (columns/2) * cell_size) + (c * cell_size)
 			cell_position.z = floor(cell_position.z) - floor((rows/2) * cell_size) + (r * cell_size)
 			var cell = cellScene.instantiate()
 			add_child(cell)
 			cell.scale.x = cell_size
 			cell.scale.z = cell_size
-			cell.global_position = cell_position
+			cell.position = cell_position
 			grid[r].push_back(cell)
 
 	#Build Roads
@@ -57,7 +58,6 @@ func _ready():
 			vertical_roads.push_back(randomIndex)
 
 	print(vertical_roads)
-	const roads_padding = 0.005
 
 	for col in vertical_roads:
 		for row in grid:

@@ -3,12 +3,10 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qf4b6"]
 albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_hms72"]
-lightmap_size_hint = Vector2i(7, 7)
-size = Vector2(1, 1)
+[sub_resource type="BoxMesh" id="BoxMesh_cjxm8"]
 
 [node name="Road" type="Node3D"]
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_qf4b6")
-mesh = SubResource("PlaneMesh_hms72")
+mesh = SubResource("BoxMesh_cjxm8")
