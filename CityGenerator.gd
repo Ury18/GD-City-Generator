@@ -128,7 +128,6 @@ func _ready():
 					building.position = Vector3(0,0,0)
 					cell.add_child(building)
 				else:
-					cell.get_node("Area3D").process_mode = 1
 					cell.get_node("Outline").visible = true
 
 
