@@ -16,6 +16,7 @@ extends Node3D
 @export var maxRoadsVertical = 2
 @export var roads_margin = 3
 @export	var roads_padding = 0
+var isCollisionsResized = false
 
 var grid : Array[Array] = []
 var roadCells : Array[Node3D] = []
@@ -34,7 +35,9 @@ func _ready():
 			cell_position.z = cell_position.z - floor((rows/2) * cell_size) + (r * cell_size)
 			var cell = cellScene.instantiate()
 			add_child(cell)
-			cell.scale = Vector3(cell_size,cell_size,cell_size)
+			cell.get_node("Outline").scale *= cell_size
+			cell.get_node("StaticBody").scale *= cell_size
+			cell.get_node("StaticBody").position.y = cell.get_node("StaticBody").scale.y /2
 			cell.position = cell_position
 			grid[r].push_back(cell)
 
@@ -44,7 +47,7 @@ func _ready():
 	var vertical_number_of_roads = floor(randi_range(minRoadsVertical, maxRoadsVertical))
 
 	while vertical_roads.size() < vertical_number_of_roads:
-		var randomIndex = randi_range(0, columns - 1)
+		var randomIndex = randi_range(0, columns - 2)
 		var skip = false
 		if vertical_roads.has(randomIndex):
 			skip = true
@@ -64,13 +67,21 @@ func _ready():
 		for row in grid:
 			var cell = row[col]
 			# print(row)
-			var building = roadScene.instantiate()
-			building.get_node("Mesh").scale.x += roads_padding
-			building.get_node("Mesh").scale.z += roads_padding
-			cell.add_child(building)
-			cell.get_node("Outline").visible = false
+			var road = roadScene.instantiate()
+			road.get_node("Mesh").scale *= cell_size
+			road.position = cell.position
+			add_child(road)
+			# cell.get_node("Outline").visible = false
 			roadCells.push_back(cell)
-			# print(cell)
+
+			var cell2 = row[col + 1]
+			# print(row)
+			var road2 = roadScene.instantiate()
+			road2.get_node("Mesh").scale *= cell_size
+			road2.position = cell2.position
+			add_child(road2)
+			# cell2.get_node("Outline").visible = false
+			roadCells.push_back(cell2)
 
 			# # WAIT
 			# timer.start()
@@ -81,7 +92,7 @@ func _ready():
 	var horizontal_number_of_roads = floor(randi_range(minRoadsHorizontal, maxRoadsHorizontal))
 
 	while horizontal_roads.size() < horizontal_number_of_roads:
-		var randomIndex = randi_range(0, rows - 1)
+		var randomIndex = randi_range(0, rows - 2)
 		var skip = false
 		if horizontal_roads.has(randomIndex):
 			skip = true
@@ -101,11 +112,21 @@ func _ready():
 		for col in grid[row]:
 			var cell = col
 			# print(row)
-			var building = roadScene.instantiate()
-			building.get_node("Mesh").scale.x += roads_padding
-			building.get_node("Mesh").scale.z += roads_padding
-			cell.add_child(building)
-			cell.get_node("Outline").visible = false
+			var road = roadScene.instantiate()
+			road.get_node("Mesh").scale *= cell_size
+			road.position = cell.position
+			add_child(road)
+			# cell.get_node("Outline").visible = false
+			roadCells.push_back(cell)
+
+		for col in grid[row +1]:
+			var cell = col
+			# print(row)
+			var road = roadScene.instantiate()
+			road.get_node("Mesh").scale *= cell_size
+			road.position = cell.position
+			add_child(road)
+			# cell.get_node("Outline").visible = false
 			roadCells.push_back(cell)
 
 			# print(cell)
@@ -125,11 +146,14 @@ func _ready():
 					var index = randi_range(0, buildings.size() - 1)
 					var buildingScene = buildings[index]
 					var building = buildingScene.instantiate()
-					building.position = Vector3(0,0,0)
-					cell.add_child(building)
+					building.position = cell.position
+					var buildingMesh = building.get_node("Mesh")
+					buildingMesh.scale *= cell_size
+					buildingMesh.position.y = buildingMesh.scale.y / 2
+
+					add_child(building)
 				else:
 					cell.get_node("Outline").visible = true
-
 
 
 func _process(delta):

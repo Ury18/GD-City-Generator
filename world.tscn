@@ -44,10 +44,11 @@ mesh = SubResource("PlaneMesh_tevsa")
 
 [node name="CityGenerator" parent="." instance=ExtResource("2_0ja16")]
 transform = Transform3D(1.00074, 0, 0, 0, 1.00074, 0, 0, 0, 1.00074, 0, 0.1, 0)
-cell_size = 10
+cell_size = 5
 rows = 99
 columns = 99
 minRoadsHorizontal = 10
 maxRoadsHorizontal = 15
 minRoadsVertical = 10
 maxRoadsVertical = 17
+roads_margin = 5
