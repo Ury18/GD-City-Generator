@@ -1,4 +1,4 @@
-@tool
+# @tool
 class_name CityGenerator
 extends Node3D
 
@@ -8,6 +8,7 @@ extends Node3D
 @export var columns: int
 @export var cellScene: PackedScene
 @export var roadScene: PackedScene
+@export var buildings: Array[PackedScene]
 @onready var timer: Timer = $Timer
 @export var minRoadsHorizontal = 2
 @export var maxRoadsHorizontal = 2
@@ -17,7 +18,7 @@ extends Node3D
 @export	var roads_padding = 0
 
 var grid : Array[Array] = []
-
+var roadCells : Array[Node3D] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,14 +30,14 @@ func _ready():
 		grid.push_back([])
 		for c in columns:
 			var cell_position : Vector3 = center.position
-			cell_position.x = floor(cell_position.x) - floor( (columns/2) * cell_size) + (c * cell_size)
-			cell_position.z = floor(cell_position.z) - floor((rows/2) * cell_size) + (r * cell_size)
+			cell_position.x = cell_position.x - floor( (columns/2) * cell_size) + (c * cell_size)
+			cell_position.z = cell_position.z - floor((rows/2) * cell_size) + (r * cell_size)
 			var cell = cellScene.instantiate()
 			add_child(cell)
-			cell.scale.x = cell_size
-			cell.scale.z = cell_size
+			cell.scale = Vector3(cell_size,cell_size,cell_size)
 			cell.position = cell_position
 			grid[r].push_back(cell)
+
 
 	#Build Roads
 	var vertical_roads := []
@@ -63,11 +64,12 @@ func _ready():
 		for row in grid:
 			var cell = row[col]
 			# print(row)
-			var road = roadScene.instantiate()
-			road.get_node("Mesh").scale.x += roads_padding
-			road.get_node("Mesh").scale.z += roads_padding
-			cell.add_child(road)
+			var building = roadScene.instantiate()
+			building.get_node("Mesh").scale.x += roads_padding
+			building.get_node("Mesh").scale.z += roads_padding
+			cell.add_child(building)
 			cell.get_node("Outline").visible = false
+			roadCells.push_back(cell)
 			# print(cell)
 
 			# # WAIT
@@ -99,14 +101,38 @@ func _ready():
 		for col in grid[row]:
 			var cell = col
 			# print(row)
-			var road = roadScene.instantiate()
-			road.get_node("Mesh").scale.x += roads_padding
-			road.get_node("Mesh").scale.z += roads_padding
-			cell.add_child(road)
+			var building = roadScene.instantiate()
+			building.get_node("Mesh").scale.x += roads_padding
+			building.get_node("Mesh").scale.z += roads_padding
+			cell.add_child(building)
 			cell.get_node("Outline").visible = false
+			roadCells.push_back(cell)
+
 			# print(cell)
 
 			# # WAIT
 			# timer.start()
 			# await timer.timeout
 			# await get_tree().process_frame
+
+	#Build buildings
+	for row in grid:
+		for cell in row:
+			var isBuilding = randi_range(0,10)
+
+			if !(roadCells.has(cell)):
+				if isBuilding <= 8:
+					var index = randi_range(0, buildings.size() - 1)
+					var buildingScene = buildings[index]
+					var building = buildingScene.instantiate()
+					building.position = Vector3(0,0,0)
+					cell.add_child(building)
+				else:
+					cell.get_node("Area3D").process_mode = 1
+					cell.get_node("Outline").visible = true
+
+
+
+func _process(delta):
+	print(Engine.get_frames_per_second())
+	pass

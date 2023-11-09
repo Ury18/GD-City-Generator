@@ -14,3 +14,11 @@ config/name="City Generator"
 run/main_scene="res://world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/vsync/vsync_mode=0
+
+[editor]
+
+movie_writer/vsync/vsync_mode=1

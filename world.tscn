@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2hbqmaie47c4"]
+[gd_scene load_steps=8 format=3 uid="uid://c2hbqmaie47c4"]
 
+[ext_resource type="Script" path="res://free_look_camera.gd" id="1_jluth"]
 [ext_resource type="PackedScene" uid="uid://bf0mayk7on0pw" path="res://CityGenerator.tscn" id="2_0ja16"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_cen41"]
@@ -15,11 +16,11 @@ sky = SubResource("Sky_2uy3q")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fvkxm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l54sr"]
 albedo_color = Color(0, 0.184314, 0, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tevsa"]
-material = SubResource("StandardMaterial3D_fvkxm")
+material = SubResource("StandardMaterial3D_l54sr")
 size = Vector2(1, 1)
 
 [node name="World" type="Node3D"]
@@ -33,34 +34,20 @@ environment = SubResource("Environment_eq8rj")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 80, 0)
-projection = 1
-fov = 125.9
-size = 330.0
+fov = 80.0
+size = 226.005
+script = ExtResource("1_jluth")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(274, 0, 0, 0, 1, 0, 0, 0, 275, 0, 0, 0)
+transform = Transform3D(302.4, 0, 0, 0, 1, 0, 0, 0, 302.4, 0, 0, 0)
 mesh = SubResource("PlaneMesh_tevsa")
 
 [node name="CityGenerator" parent="." instance=ExtResource("2_0ja16")]
-cell_size = 5
-rows = 55
-columns = 55
-minRoadsHorizontal = 5
-maxRoadsHorizontal = 8
-minRoadsVertical = 3
-maxRoadsVertical = 5
-roads_margin = 5
-
-[node name="Floor2" type="MeshInstance3D" parent="."]
-transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 220, -0.1, 0)
-mesh = SubResource("PlaneMesh_tevsa")
-
-[node name="CityGenerator2" parent="." node_paths=PackedStringArray("center") instance=ExtResource("2_0ja16")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 223.095, 0, 2.24775)
-center = NodePath("../CityGenerator/MeshInstance3D")
-cell_size = 5
-rows = 20
-columns = 20
-maxRoadsHorizontal = 3
-maxRoadsVertical = 4
-roads_margin = 2
+transform = Transform3D(1.00074, 0, 0, 0, 1.00074, 0, 0, 0, 1.00074, 0, 0.1, 0)
+cell_size = 10
+rows = 99
+columns = 99
+minRoadsHorizontal = 10
+maxRoadsHorizontal = 15
+minRoadsVertical = 10
+maxRoadsVertical = 17
